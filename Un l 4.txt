@@ -1,0 +1,1129 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html b:css='false' b:layoutsVersion='3' b:version='2' expr:dir='data:blog.languageDirection'>
+<head>
+  <title><data:blog.pageTitle/></title>
+  <meta charset='UTF-8'/>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src='https://cdn.tailwindcss.com'></script>
+  <!-- Google Fonts Inter for better readability, using &amp; for XML compatibility -->
+  <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&amp;display=swap' rel='stylesheet'/>
+  <!-- Font Awesome for icons -->
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'/>
+
+  <!-- Blogger specific: Template variables can sometimes help Blogger recognize the skin better -->
+  <b:template-skin>
+    <b:variable name='body.font' type='font' value='normal normal 13px &quot;Inter&quot;, sans-serif'/>
+    <b:variable name='body.text.color' type='color' value='#e2e8f0'/>
+    <b:variable name='link.color' type='color' value='#f97316'/>
+    <b:variable name='main.background.color' type='color' value='#0f172a'/>
+    <!-- You can add more variables here if you want to expose more styling options in Blogger's Customizer -->
+  </b:template-skin>
+
+  <!-- Blogger specific: The main style block must be wrapped in <b:skin> for proper theme styling -->
+  <b:skin><![CDATA[
+        /* Base styles for body and overall layout */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f172a; /* Solid dark background for a smoother feel */
+            color: #e2e8f0;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+            line-height: 1.6; /* Improved readability */
+        }
+
+        /* Custom pulsing animation for the announcement bar */
+        @keyframes pulse-custom {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        .animate-pulse-custom {
+            animation: pulse-custom 2s infinite;
+        }
+
+        /* Custom button hover effect - applies to .cta-button span */
+        .cta-button span {
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease-in-out;
+            overflow: hidden;
+        }
+
+        .cta-button span::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2); /* Light overlay for hover effect */
+            transition: all 0.3s ease-in-out;
+            z-index: -1;
+        }
+
+        .cta-button:hover span::before {
+            left: 0;
+        }
+
+        /* Testimonial card hover effect */
+        .testimonial-card:hover {
+            box-shadow: 0 10px 20px rgba(249, 115, 22, 0.4); /* Orange glow on hover */
+            transform: translateY(-5px) scale(1.01);
+        }
+
+        /* Keyframe for subtle bounce animation on timeline dots */
+        @keyframes bounce-subtle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+        .animate-bounce-subtle {
+            animation: bounce-subtle 1.5s infinite;
+        }
+
+        /* Carousel specific styles */
+        .carousel-container {
+            position: relative;
+        }
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(249, 115, 22, 0.7); /* orange-500 with transparency */
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px; /* Full rounded */
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .carousel-button:hover {
+            background-color: rgba(249, 115, 22, 0.9);
+            transform: translateY(-50%) scale(1.05);
+        }
+        .carousel-button.left {
+            left: 1rem;
+        }
+        .carousel-button.right {
+            right: 1rem;
+        }
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+        .carousel-dot {
+            width: 0.75rem;
+            height: 0.75rem;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 9999px;
+            margin: 0 0.375rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .carousel-dot.active {
+            background-color: #f97316; /* orange-500 */
+            transform: scale(1.2);
+        }
+
+        /* Refined Styles for the Pricing Section */
+        .pricing-section {
+            background: #0f172a; /* Consistent with body background */
+        }
+        
+        .diamond-card {
+            background: rgba(26, 32, 44, 0.8); /* Slightly lighter but still dark background */
+            backdrop-filter: blur(8px); /* Slightly less blur */
+            border: 1px solid rgba(255, 215, 0, 0.15); /* Softer border */
+            border-radius: 16px; /* Slightly less rounded */
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            padding: 2.5rem; /* Consistent padding */
+        }
+        
+        .diamond-card::before {
+            content: '';
+            position: absolute;
+            top: -60%; /* Adjusted for a softer glow effect */
+            left: -60%;
+            width: 220%;
+            height: 220%;
+            background: radial-gradient(circle, rgba(255,215,0,0.07) 0%, transparent 55%); /* Softer glow */
+            transform: rotate(20deg); /* Adjusted angle */
+            z-index: 1;
+        }
+        
+        .diamond-card:hover {
+            transform: translateY(-8px); /* Slightly less lift */
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4), 0 0 24px rgba(255, 215, 0, 0.15); /* Softer hover shadow */
+            border: 1px solid rgba(255, 215, 0, 0.4); /* Softer hover border */
+        }
+        
+        .premium-badge {
+            position: absolute;
+            top: -10px; /* Adjusted position */
+            right: 20px;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #0f172a; /* Darker text for contrast */
+            font-weight: 700; /* Slightly less bold */
+            padding: 6px 16px; /* Adjusted padding */
+            border-radius: 25px; /* Slightly less rounded */
+            font-size: 15px; /* Slightly smaller font */
+            box-shadow: 0 3px 10px rgba(255, 215, 0, 0.25);
+            z-index: 10;
+            animation: pulse 1.8s infinite; /* Slightly faster pulse */
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); } /* Slightly less scale */
+            100% { transform: scale(1); }
+        }
+        
+        .value-comparison {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 12px; /* Slightly less rounded */
+            border: 1px solid rgba(255, 215, 0, 0.1); /* Softer border */
+        }
+        
+        .savings-badge {
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+            color: #0f172a;
+            font-weight: 600;
+            padding: 3px 10px; /* Adjusted padding */
+            border-radius: 15px; /* Slightly less rounded */
+            font-size: 13px; /* Slightly smaller font */
+        }
+        
+        .feature-item {
+            transition: all 0.2s ease-in-out; /* Faster transition */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03); /* Lighter border */
+            padding: 0.75rem 1rem; /* Adjusted padding */
+        }
+        
+        .feature-item:hover {
+            background: rgba(255, 215, 0, 0.03); /* Softer background on hover */
+            transform: translateX(3px); /* Slightly less translation */
+        }
+        
+        .checkmark {
+            width: 22px; /* Slightly smaller */
+            height: 22px; /* Slightly smaller */
+            background: rgba(255, 215, 0, 0.15); /* Softer background */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px; /* Slightly less margin */
+        }
+        
+        .checkmark i {
+            color: #FFD700;
+            font-size: 11px; /* Slightly smaller */
+        }
+        
+        /* cta-button styling */
+        .cta-button {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF9E1B 100%); /* Retain primary orange gradient */
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            display: inline-block;
+            padding: 1rem 2rem; /* Ensure good button size */
+            border-radius: 9999px; /* Fully rounded */
+            font-weight: bold;
+            color: #fff;
+            text-align: center;
+        }
+        
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(30deg);
+            transition: all 0.6s ease;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(255, 107, 53, 0.6);
+        }
+        
+        .cta-button:hover::after {
+            left: 100%;
+        }
+        
+        .guarantee-badge {
+            background: rgba(255, 215, 0, 0.07); /* Softer background */
+            border: 1px solid rgba(255, 215, 0, 0.2); /* Softer border */
+            border-radius: 8px; /* Slightly less rounded */
+            padding: 8px 16px; /* Adjusted padding */
+        }
+        
+        .value-bar {
+            height: 3px; /* Thinner bar */
+            background: rgba(255, 255, 255, 0.08); /* Lighter background */
+            border-radius: 1.5px; /* Half of height */
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .value-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FF6B35, #FFD700);
+            width: 82%;
+        }
+        
+        .value-dot {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 14px; /* Slightly smaller */
+            height: 14px; /* Slightly smaller */
+            border-radius: 50%;
+            background: #FFD700;
+            box-shadow: 0 0 8px rgba(255, 215, 0, 0.4); /* Softer shadow */
+        }
+        
+        .value-dot.our-offer {
+            left: calc(82% - 7px); /* Adjust for half dot width */
+        }
+        
+        .value-dot.actual-value {
+            left: calc(100% - 7px); /* Adjust for half dot width */
+        }
+        
+        .comparison-item {
+            transition: all 0.2s ease-in-out; /* Faster transition */
+        }
+        
+        .comparison-item:hover {
+            background: rgba(30, 41, 59, 0.6); /* Slightly softer background */
+            transform: scale(1.01); /* Slightly less scale */
+        }
+  ]]></b:skin>
+  
+</head>
+<body>
+  <!-- This is the main section where your page content will be rendered -->
+  <b:section id='main-content' showaddelement='no'>
+    <!-- We'll use a single HTML widget to contain all your custom page structure -->
+    <b:widget id='HTML1' type='HTML' locked='false'>
+      <b:includable id='main'>
+        <b:tag name='div' expr:dir='data:blog.languageDirection'>
+          <![CDATA[
+            <!-- Your entire HTML body content starts here -->
+
+            <!-- Announcement Bar -->
+            <div class="bg-orange-600 text-white p-3 text-center font-bold animate-pulse-custom rounded-b-lg shadow-lg">
+                🔥 LIMITED OFFER: Save 80% – Get $2,847 Value for Just $499! 🔥
+            </div>
+
+            <!-- Header -->
+            <header class="bg-gradient-to-br from-gray-900 to-gray-800 py-6 text-center border-b-2 border-orange-600 shadow-xl">
+                <div class="container mx-auto px-4">
+                    <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-orange-500 tracking-tight">EDUCATION GROWTH IGNITION SYSTEM</h1>
+                </div>
+            </header>
+
+            <!-- Hero Section -->
+            <section class="py-16 sm:py-20 text-center bg-gradient-to-br from-gray-900 to-black">
+                <div class="container mx-auto px-4 max-w-4xl">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 bg-gradient-to-r from-orange-500 to-orange-300 text-transparent bg-clip-text leading-tight">
+                        Launch Your Student Pipeline in <span class="block lg:inline">30 Days!</span>
+                    </h1>
+                    <h2 class="text-xl sm:text-2xl lg:text-3xl text-gray-300 font-light mb-8">
+                        Done-for-You Ad, Landing Page &amp; Lead System for Coaching Centers &amp; Schools
+                    </h2>
+                    <p class="text-lg sm:text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
+                        <span class="font-bold text-orange-400">🎁 Total Value: $2,847</span> — <span class="font-bold text-orange-400">Today Only: $499!</span>
+                    </p>
+                    <a href="#order-form" class="cta-button group">
+                        <span class="inline-block px-8 py-4 bg-gradient-to-r from-orange-600 to-orange-400 text-white font-extrabold text-xl sm:text-2xl rounded-full shadow-2xl transform transition-all duration-300 group-hover:scale-105 group-hover:from-orange-700 group-hover:to-orange-500 active:scale-95 active:shadow-inner">
+                            YES! I Want More Enrollments!
+                        </span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Video Sales Letter Section -->
+            <section class="py-16 bg-gray-900">
+                <div class="container mx-auto px-4 max-w-3xl">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-center text-orange-500 mb-10">Watch How It Works (60 Secs)</h2>
+                    <div class="relative pb-[56.25%] h-0 overflow-hidden rounded-xl shadow-2xl border-2 border-orange-600">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/fA4uU-8x7aY?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="true"></iframe>
+                    </div>
+                    <div class="text-center mt-10">
+                        <a href="#order-form" class="cta-button group">
+                            <span class="inline-block px-8 py-4 bg-gradient-to-r from-orange-600 to-orange-400 text-white font-extrabold text-xl sm:text-2xl rounded-full shadow-2xl transform transition-all duration-300 group-hover:scale-105 group-hover:from-orange-700 group-hover:to-orange-500 active:scale-95 active:shadow-inner">
+                                Get Instant Access Now!
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Benefits Section: "Everything You Get" -->
+            <section class="py-16 sm:py-20 bg-black">
+                <div class="container mx-auto px-4 max-w-5xl">
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-orange-500 mb-12">✅ What You Get: Done-For-You Success</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Benefit Item 1 -->
+                        <div class="bg-gray-900 p-6 sm:p-8 rounded-2xl shadow-xl border-2 border-gray-700 hover:border-orange-600 transform transition-transform duration-300 hover:-translate-y-2">
+                            <div class="text-4xl sm:text-5xl text-orange-500 mb-4 text-center">📈</div>
+                            <h3 class="text-xl sm:text-2xl font-bold text-white mb-2 text-center">FB &amp; Google Ads Setup</h3>
+                            <p class="text-gray-300 text-sm sm:text-base text-center">Expertly crafted ads to attract students.</p>
+                        </div>
+                        <!-- Benefit Item 2 -->
+                        <div class="bg-gray-900 p-6 sm:p-8 rounded-2xl shadow-xl border-2 border-gray-700 hover:border-orange-600 transform transition-transform duration-300 hover:-translate-y-2">
+                            <div class="text-4xl sm:text-5xl text-orange-500 mb-4 text-center">💬</div>
+                            <h3 class="text-xl sm:text-2xl font-bold text-white mb-2 text-center">WhatsApp Chatbot</h3>
+                            <p class="text-gray-300 text-sm sm:text-base text-center">24/7 automated lead engagement.</p>
+                        </div>
+                        <!-- Benefit Item 3 -->
+                        <div class="bg-gray-900 p-6 sm:p-8 rounded-2xl shadow-xl border-2 border-gray-700 hover:border-orange-600 transform transition-transform duration-300 hover:-translate-y-2">
+                            <div class="text-4xl sm:text-5xl text-orange-500 mb-4 text-center">📄</div>
+                            <h3 class="text-xl sm:text-2xl font-bold text-white mb-2 text-center">High-Converting Landing Page</h3>
+                            <p class="text-gray-300 text-sm sm:text-base text-center">Optimized page to turn visitors into leads.</p>
+                        </div>
+                        <!-- Benefit Item 4 -->
+                        <div class="bg-gray-900 p-6 sm:p-8 rounded-2xl shadow-xl border-2 border-gray-700 hover:border-orange-600 transform transition-transform duration-300 hover:-translate-y-2">
+                            <div class="text-4xl sm:text-5xl text-orange-500 mb-4 text-center">📧</div>
+                            <h3 class="text-xl sm:text-2xl font-bold text-white mb-2 text-center">Email + SMS Follow-Up</h3>
+                            <p class="text-gray-300 text-sm sm:text-base text-center">Automated nurturing to secure enrollments.</p>
+                        </div>
+                        <!-- Benefit Item 5 (originally item 7, moved to center) -->
+                        <div class="bg-gray-900 p-6 sm:p-8 rounded-2xl shadow-xl border-2 border-gray-700 hover:border-orange-600 transform transition-transform duration-300 hover:-translate-y-2">
+                            <div class="text-4xl sm:text-5xl text-orange-500 mb-4 text-center">📞</div>
+                            <h3 class="text-xl sm:text-2xl font-bold text-white mb-2 text-center">30-Min Strategy Call</h3>
+                            <p class="text-gray-300 text-sm sm:text-base text-center">Personalized plan with our experts.</p>
+                        </div>
+                        <!-- Benefit Item 6 (originally item 5) -->
+                        <div class="bg-gray-900 p-6 sm:p-8 rounded-2xl shadow-xl border-2 border-gray-700 hover:border-orange-600 transform transition-transform duration-300 hover:-translate-y-2">
+                            <div class="text-4xl sm:text-5xl text-orange-500 mb-4 text-center">📊</div>
+                            <h3 class="text-xl sm:text-2xl font-bold text-white mb-2 text-center">Live Performance Dashboard</h3>
+                            <p class="text-gray-300 text-sm sm:text-base text-center">Real-time CPL, leads, and tracking.</p>
+                        </div>
+                        <!-- Benefit Item 7 (originally item 6) -->
+                        <div class="bg-gray-900 p-6 sm:p-8 rounded-2xl shadow-xl border-2 border-gray-700 hover:border-orange-600 transform transition-transform duration-300 hover:-translate-y-2">
+                            <div class="text-4xl sm:text-5xl text-orange-500 mb-4 text-center">🗓️</div>
+                            <h3 class="text-xl sm:text-2xl font-bold text-white mb-2 text-center">Weekly Strategy Report</h3>
+                            <p class="text-gray-300 text-sm sm:text-base text-center">Detailed reports &amp; campaign tuning.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonials Section -->
+            <section class="py-16 sm:py-20 bg-gray-900">
+                <div class="container mx-auto px-4 max-w-5xl">
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-orange-500 mb-12">🌟 Hear From Our Success Stories!</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Testimonial 1 -->
+                        <div class="bg-black p-6 rounded-2xl shadow-xl border-l-4 border-orange-600 testimonial-card transition-all duration-300">
+                            <p class="text-gray-300 text-base sm:text-lg italic mb-4">"I went from $0 to <span class="font-bold text-orange-400">$15,000</span> in my first month. The step-by-step training made it so easy to follow along."</p>
+                            <p class="text-orange-400 font-bold text-right text-sm sm:text-base">- Sarah M., Teacher</p>
+                        </div>
+                        <!-- Testimonial 2 -->
+                        <div class="bg-black p-6 rounded-2xl shadow-xl border-l-4 border-orange-600 testimonial-card transition-all duration-300">
+                            <p class="text-gray-300 text-base sm:text-lg italic mb-4">"As a single mom, this system gave me the freedom I was looking for. I'm now making <span class="font-bold text-orange-400">more than my full-time job!</span>"</p>
+                            <p class="text-orange-400 font-bold text-right text-sm sm:text-base">- Jennifer K., Single Mom</p>
+                        </div>
+                        <!-- Testimonial 3 -->
+                        <div class="bg-black p-6 rounded-2xl shadow-xl border-l-4 border-orange-600 testimonial-card transition-all duration-300">
+                            <p class="text-gray-300 text-base sm:text-lg italic mb-4">"Within 3 weeks, I had my first <span class="font-bold text-orange-400">$5,000 month</span>. Now I'm consistently hitting <span class="font-bold text-orange-400">$20K+</span> every month. This is the real deal!"</p>
+                            <p class="text-orange-400 font-bold text-right text-sm sm:text-base">- Mike R., Former Accountant</p>
+                        </div>
+                        <!-- Add more testimonials as needed following the same structure -->
+                        <div class="bg-black p-6 rounded-2xl shadow-xl border-l-4 border-orange-600 testimonial-card transition-all duration-300">
+                            <p class="text-gray-300 text-base sm:text-lg italic mb-4">"Our enrollment numbers exploded after implementing the Education Growth Ignition System. It's truly a game-changer!"</p>
+                            <p class="text-orange-400 font-bold text-right text-sm sm:text-base">- David L., School Director</p>
+                        </div>
+                        <div class="bg-black p-6 rounded-2xl shadow-xl border-l-4 border-orange-600 testimonial-card transition-all duration-300">
+                            <p class="text-gray-300 text-base sm:text-lg italic mb-4">"The automated follow-up saved us so much time and effort, allowing us to focus on what we do best: educating!"</p>
+                            <p class="text-orange-400 font-bold text-right text-sm sm:text-base">- Emily S., Coaching Center Owner</p>
+                        </div>
+                        <div class="bg-black p-6 rounded-2xl shadow-xl border-l-4 border-orange-600 testimonial-card transition-all duration-300">
+                            <p class="text-gray-300 text-base sm:text-lg italic mb-4">"Highly recommend this system to any educational institution looking for serious growth. The ROI is incredible!"</p>
+                            <p class="text-orange-400 font-bold text-right text-sm sm:text-base">- Robert P., Admissions Head</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Video Testimonial Section with Carousel -->
+            <section class="py-16 bg-black">
+                <div class="container mx-auto px-4 max-w-3xl">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-center text-orange-500 mb-10">Real Results: Watch Their Stories!</h2>
+                    <div class="carousel-container">
+                        <div class="relative pb-[56.25%] h-0 overflow-hidden rounded-xl shadow-2xl border-2 border-orange-600">
+                            <!-- The iframe for the current video -->
+                            <iframe id="videoPlayer" class="absolute top-0 left-0 w-full h-full" src="" title="Video Testimonial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="true"></iframe>
+                        </div>
+                        <!-- Carousel Navigation Buttons -->
+                        <button id="prevBtn" class="carousel-button left text-2xl px-4 py-2">
+                            &lt;
+                        </button>
+                        <button id="nextBtn" class="carousel-button right text-2xl px-4 py-2">
+                            &gt;
+                        </button>
+                        <!-- Carousel Dots -->
+                        <div id="carouselDots" class="carousel-dots">
+                            <!-- Dots will be generated by JavaScript -->
+                        </div>
+                    </div>
+                    <p class="text-center text-gray-400 text-lg mt-8">
+                        These are just a few of the many success stories we've helped create. Are you next?
+                    </p>
+                </div>
+            </section>
+
+            <!-- Bonus Section -->
+            <section class="py-16 sm:py-20 bg-gray-900">
+                <div class="container mx-auto px-4 max-w-5xl">
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-orange-500 mb-12">🎁 7 FREE Bonuses (Valued at $900+!)</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Bonus Item 1 -->
+                        <div class="bg-black p-6 rounded-xl shadow-lg border-l-4 border-orange-600 flex items-center space-x-4">
+                            <div class="text-3xl sm:text-4xl text-orange-500">⭐</div>
+                            <div>
+                                <h3 class="text-lg sm:text-xl font-semibold text-white">Bonus #1: Lead Magnet eBook ($197)</h3>
+                                <p class="text-gray-400 text-sm sm:text-base">Ready-to-use, high-value eBook.</p>
+                            </div>
+                        </div>
+                        <!-- Bonus Item 2 -->
+                        <div class="bg-black p-6 rounded-xl shadow-lg border-l-4 border-orange-600 flex items-center space-x-4">
+                            <div class="text-3xl sm:text-4xl text-orange-500">🎨</div>
+                            <div>
+                                <h3 class="text-lg sm:text-xl font-semibold text-white">Bonus #2: 15 Ad Creatives ($149)</h3>
+                                <p class="text-gray-400 text-sm sm:text-base">Compelling visuals for standout ads.</p>
+                            </div>
+                        </div>
+                        <!-- Bonus Item 3 -->
+                        <div class="bg-black p-6 rounded-xl shadow-lg border-l-4 border-orange-600 flex items-center space-x-4">
+                            <div class="text-3xl sm:text-4xl text-orange-500">↩️</div>
+                            <div>
+                                <h3 class="text-lg sm:text-xl font-semibold text-white">Bonus #3: Retargeting Ads ($99)</h3>
+                                <p class="text-gray-400 text-sm sm:text-base">Re-engage prospects for higher conversions.</p>
+                            </div>
+                        </div>
+                        <!-- Bonus Item 4 -->
+                        <div class="bg-black p-6 rounded-xl shadow-lg border-l-4 border-orange-600 flex items-center space-x-4">
+                            <div class="text-3xl sm:text-4xl text-orange-500">📝</div>
+                            <div>
+                                <h3 class="text-lg sm:text-xl font-semibold text-white">Bonus #4: WhatsApp Follow-Up Scripts ($89)</h3>
+                                <p class="text-gray-400 text-sm sm:text-base">Proven scripts for WhatsApp conversations.</p>
+                            </div>
+                        </div>
+                        <!-- Bonus Item 5 -->
+                        <div class="bg-black p-6 rounded-xl shadow-lg border-l-4 border-orange-600 flex items-center space-x-4">
+                            <div class="text-3xl sm:text-4xl text-orange-500">💬</div>
+                            <div>
+                                <h3 class="text-lg sm:text-xl font-semibold text-white">Bonus #5: Client Chat Support ($150)</h3>
+                                <p class="text-gray-400 text-sm sm:text-base">Direct support for all your queries.</p>
+                            </div>
+                        </div>
+                        <!-- Bonus Item 6 -->
+                        <div class="bg-black p-6 rounded-xl shadow-lg border-l-4 border-orange-600 flex items-center space-x-4">
+                            <div class="text-3xl sm:text-4xl text-orange-500">🚀</div>
+                            <div>
+                                <h3 class="text-lg sm:text-xl font-semibold text-white">Bonus #6: 72-Hour Fast Launch ($120)</h3>
+                                <p class="text-gray-400 text-sm sm:text-base">Go live and generate leads in just 3 days.</p>
+                            </div>
+                        </div>
+                        <!-- Bonus Item 7 -->
+                        <div class="bg-black p-6 rounded-xl shadow-lg border-l-4 border-orange-600 flex items-center space-x-4">
+                            <div class="text-3xl sm:text-4xl text-orange-500">🧮</div>
+                            <div>
+                                <h3 class="text-lg sm:text-xl font-semibold text-white">Bonus #7: ROI Calculator Sheet ($92)</h3>
+                                <p class="text-gray-400 text-sm sm:text-base">Track your returns and measure success easily.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-12">
+                        <p class="text-2xl font-bold text-gray-300">
+                            <span class="line-through">Total Value: $2,847</span> <span class="mx-4">→</span> <span class="text-orange-500 text-4xl">You Pay: $499!</span>
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ROI Calculator / Why It’s a No-Brainer -->
+            <section class="py-16 bg-black">
+                <div class="container mx-auto px-4 max-w-3xl text-center">
+                    <h2 class="text-3xl sm:text-4xl font-black text-orange-500 mb-10 leading-tight">💥 Calculate Your Potential ROI!</h2>
+                    <p class="text-gray-400 text-md sm:text-lg mb-8 max-w-2xl mx-auto">
+                        Based on our <span class="font-bold text-orange-400">previous client success stories</span>, here's an estimate. Adjust the values below to see your personalized potential!
+                    </p>
+                    <div class="bg-gray-900 p-8 rounded-2xl shadow-xl border-2 border-orange-600 transform transition-transform duration-300 hover:scale-105">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-6 text-left mb-8">
+                            <!-- Input for Average Course Fee -->
+                            <div>
+                                <label for="avgCourseFee" class="block text-gray-300 text-lg font-bold mb-2">Avg. Course Fee ($):</label>
+                                <input type="number" id="avgCourseFee" class="w-full p-3 rounded-md bg-gray-800 text-white border border-gray-700 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50" value="500" min="0" />
+                            </div>
+                            <!-- Input for Expected Conversion Rate -->
+                            <div>
+                                <label for="conversionRate" class="block text-gray-300 text-lg font-bold mb-2">Conversion Rate (%):</label>
+                                <input type="number" id="conversionRate" class="w-full p-3 rounded-md bg-gray-800 text-white border border-gray-700 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50" value="10" min="0" max="100" />
+                            </div>
+                            <!-- Input for Average Cost per Lead -->
+                            <div>
+                                <label for="costPerLead" class="block text-gray-300 text-lg font-bold mb-2">Avg. Cost per Lead ($):</label>
+                                <input type="number" id="costPerLead" class="w-full p-3 rounded-md bg-gray-800 text-white border border-gray-700 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50" value="3" min="0" />
+                            </div>
+                            <!-- Input for Number of Leads -->
+                            <div>
+                                <label for="numLeads" class="block text-gray-300 text-lg font-bold mb-2">Number of Leads:</label>
+                                <input type="number" id="numLeads" class="w-full p-3 rounded-md bg-gray-800 text-white border border-gray-700 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50" value="150" min="0" />
+                            </div>
+                        </div>
+
+                        <button id="calculateRoiBtn" class="cta-button group w-full py-4 rounded-full bg-gradient-to-r from-orange-600 to-orange-400 text-white font-extrabold text-xl sm:text-2xl shadow-xl transform transition-all duration-300 hover:scale-105 hover:from-orange-700 hover:to-orange-500 active:scale-95 active:shadow-inner mb-6">
+                            <span class="inline-block">Calculate My ROI!</span>
+                        </button>
+
+                        <div id="roiResults" class="text-left mt-6 p-4 bg-gray-800 rounded-lg border border-gray-700">
+                            <p class="text-orange-400 text-lg sm:text-xl font-bold mb-2">Your Potential Results:</p>
+                            <p class="text-gray-200 text-base sm:text-lg">Expected Enrollments: <span id="displayEnrollments" class="font-semibold text-white">0</span></p>
+                            <p class="text-gray-200 text-base sm:text-lg">Estimated Revenue: <span id="displayRevenue" class="font-semibold text-white">$0</span></p>
+                            <p class="text-gray-200 text-base sm:text-lg">Estimated Ad Spend: <span id="displayAdSpend" class="font-semibold text-white">$0</span></p>
+                            <p class="text-white text-xl sm:text-2xl font-black mt-4">Calculated ROI: <span id="displayROI" class="text-orange-400 text-2xl sm:text-3xl">$0</span></p>
+                        </div>
+                    </div>
+                    <div class="mt-8 text-center">
+                        <a href="#order-form" class="cta-button group">
+                            <span class="inline-block px-8 py-4 bg-gradient-to-r from-orange-600 to-orange-400 text-white font-extrabold text-xl sm:text-2xl rounded-full shadow-2xl transform transition-all duration-300 group-hover:scale-105 group-hover:from-orange-700 group-hover:to-orange-500 active:scale-95 active:shadow-inner">
+                                I'm Ready to Profit! Click Here!
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Timeline & How It Works -->
+            <section class="py-16 bg-gray-900">
+                <div class="container mx-auto px-4 max-w-4xl">
+                    <h2 class="text-3xl sm:text-4xl font-black text-center text-orange-500 mb-12 leading-tight">🕒 Your Fast-Track to Growth: <span class="block">Launch in Just 30 Days!</span></h2>
+                    <div class="relative pl-12 sm:pl-20">
+                        <div class="absolute left-6 sm:left-9 top-0 bottom-0 w-1 bg-orange-600 rounded-full"></div>
+                        <ul class="space-y-10">
+                            <li class="relative">
+                                <div class="absolute -left-6 sm:-left-9 top-0 w-5 h-5 bg-orange-600 rounded-full border-2 border-orange-300 animate-bounce-subtle"></div>
+                                <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">Days 1–3: Seamless Onboarding &amp; Setup 🚀</h3>
+                                <p class="text-gray-300 text-sm sm:text-base">We quickly gather details &amp; kickstart your custom system. <span class="font-bold text-orange-400">Zero tech headaches for you!</span></p>
+                            </li>
+                            <li class="relative">
+                                <div class="absolute -left-6 sm:-left-9 top-0 w-5 h-5 bg-orange-600 rounded-full border-2 border-orange-300 animate-bounce-subtle delay-100"></div>
+                                <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">Days 4–10: Ads &amp; Chatbot Go LIVE! 💡</h3>
+                                <p class="text-gray-300 text-sm sm:text-base">Your targeted ads hit the market &amp; our chatbot starts <span class="font-bold text-orange-400">engaging leads 24/7.</span></p>
+                            </li>
+                            <li class="relative">
+                                <div class="absolute -left-6 sm:-left-9 top-0 w-5 h-5 bg-orange-600 rounded-full border-2 border-orange-300 animate-bounce-subtle delay-200"></div>
+                                <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">Days 11–20: Automated Follow-Up Magic! ✨</h3>
+                                <p class="text-gray-300 text-sm sm:text-base">Our system nurtures leads <span class="font-bold text-orange-400">automatically converting them into enrolled students.</span></p>
+                            </li>
+                            <li class="relative">
+                                <div class="absolute -left-6 sm:-left-9 top-0 w-5 h-5 bg-orange-600 rounded-full border-2 border-orange-300 animate-bounce-subtle delay-300"></div>
+                                <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">Days 21–30: Reports &amp; Optimization Mastery 🎯</h3>
+                                <p class="text-gray-300 text-sm sm:text-base">Get detailed reports &amp; we fine-tune campaigns for <span class="font-bold text-orange-400">maximum enrollments &amp; ROI.</span></p>
+                            </li>
+                            <li class="relative">
+                                <div class="absolute -left-6 sm:-left-9 top-0 w-5 h-5 bg-orange-600 rounded-full border-2 border-orange-300 animate-bounce-subtle delay-400"></div>
+                                <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">Ongoing: Scale &amp; Dominate Your Market! 📈</h3>
+                                <p class="text-gray-300 text-sm sm:text-base">After 30 days, continue with our monthly plan ($999/month) to <span class="font-bold text-orange-400">keep growing &amp; outperforming competitors.</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mt-12 text-center">
+                        <a href="#order-form" class="cta-button group">
+                            <span class="inline-block px-8 py-4 bg-gradient-to-r from-orange-600 to-orange-400 text-white font-extrabold text-xl sm:text-2xl rounded-full shadow-2xl transform transition-all duration-300 group-hover:scale-105 group-hover:from-orange-700 group-hover:to-orange-500 active:scale-95 active:shadow-inner">
+                                Start Your Growth Journey NOW!
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pricing Section (Integrated from pricing_un_l.txt) -->
+            <section class="pricing-section py-20 px-4 min-h-screen flex items-center" id="pricing-section-new">
+                <div class="container mx-auto max-w-6xl">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl font-bold text-amber-300 mb-4">
+                            Incredible Value, Unbeatable Price
+                        </h2>
+                        <p class="text-xl text-slate-400 max-w-2xl mx-auto">
+                            Get our premium enrollment growth system for a fraction of its actual value
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                        <!-- Value Comparison -->
+                        <div class="diamond-card p-8">
+                            <div class="premium-badge">
+                                <i class="fas fa-crown mr-2"></i> VALUE BREAKDOWN
+                            </div>
+                            
+                            <div class="relative z-10">
+                                <h3 class="text-2xl font-bold text-white mb-6">
+                                    What You're Getting
+                                </h3>
+                                
+                                <div class="mb-8">
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-slate-400">Our Offer</span>
+                                        <span class="text-slate-400">Actual Value</span>
+                                    </div>
+                                    <div class="value-bar mb-8">
+                                        <div class="value-bar-fill"></div>
+                                        <div class="value-dot our-offer"></div>
+                                        <div class="value-dot actual-value"></div>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-amber-300 font-bold">$499</span>
+                                        <span class="text-slate-300">$2,847</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="savings-badge inline-block mb-8">
+                                    <i class="fas fa-piggy-bank mr-2"></i> You save $2,348 (82%)
+                                </div>
+                                
+                                <div class="space-y-6">
+                                    <!-- Comparison Item 1 -->
+                                    <div class="comparison-item feature-item p-4 rounded-lg">
+                                        <div class="flex items-center">
+                                            <div class="checkmark">
+                                                <i class="fas fa-check"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="font-bold text-white">Complete Growth System</h4>
+                                                <p class="text-slate-400 text-sm">Value: $1,497</p>
+                                            </div>
+                                            <div class="ml-auto text-amber-300 font-bold">Included</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Comparison Item 2 -->
+                                    <div class="comparison-item feature-item p-4 rounded-lg">
+                                        <div class="flex items-center">
+                                            <div class="checkmark">
+                                                <i class="fas fa-check"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="font-bold text-white">AI-Powered Campaign Setup</h4>
+                                                <p class="text-slate-400 text-sm">Value: $697</p>
+                                            </div>
+                                            <div class="ml-auto text-amber-300 font-bold">Included</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Comparison Item 3 -->
+                                    <div class="comparison-item feature-item p-4 rounded-lg">
+                                        <div class="flex items-center">
+                                            <div class="checkmark">
+                                                <i class="fas fa-check"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="font-bold text-white">Smart Chat Automation</h4>
+                                                <p class="text-slate-400 text-sm">Value: $297</p>
+                                            </div>
+                                            <div class="ml-auto text-amber-300 font-bold">Included</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Comparison Item 4 -->
+                                    <div class="comparison-item feature-item p-4 rounded-lg">
+                                        <div class="flex items-center">
+                                            <div class="checkmark">
+                                                <i class="fas fa-check"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="font-bold text-white">Real-Time Analytics Dashboard</h4>
+                                                <p class="text-slate-400 text-sm">Value: $397</p>
+                                            </div>
+                                            <div class="ml-auto text-amber-300 font-bold">Included</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Comparison Item 5 -->
+                                    <div class="comparison-item feature-item p-4 rounded-lg">
+                                        <div class="flex items-center">
+                                            <div class="checkmark">
+                                                <i class="fas fa-check"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="font-bold text-white">90% Conversion Guarantee</h4>
+                                                <p class="text-slate-400 text-sm">Value: Priceless</p>
+                                            </div>
+                                            <div class="ml-auto text-amber-300 font-bold">Included</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Premium Offer -->
+                        <div class="diamond-card p-8">
+                            <div class="premium-badge">
+                                <i class="fas fa-gem mr-2"></i> PREMIUM OFFER
+                            </div>
+                            
+                            <div class="relative z-10">
+                                <div class="text-center mb-8">
+                                    <div class="text-5xl font-bold text-amber-300 mb-2">$499</div>
+                                    <div class="text-slate-400 line-through text-xl mb-1">$2,847 value</div>
+                                    <div class="savings-badge inline-block">
+                                        Save $2,348 (82%)
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-10">
+                                    <div class="bg-slate-800/30 p-6 rounded-xl mb-6">
+                                        <div class="flex justify-between items-center mb-4">
+                                            <div class="text-white font-bold">Today's Discount</div>
+                                            <div class="text-amber-300 font-bold">82% OFF</div>
+                                        </div>
+                                        <div class="w-full bg-slate-700 rounded-full h-2.5">
+                                            <div class="bg-gradient-to-r from-amber-500 to-orange-500 h-2.5 rounded-full" style="width: 82%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="text-center mb-6">
+                                        <div class="text-lg text-slate-300 mb-2">Offer expires in:</div>
+                                        <div class="text-2xl font-bold text-amber-300 flex justify-center space-x-4" id="pricingTimer">
+                                            <span>02</span>:<span>18</span>:<span>47</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-8">
+                                    <h4 class="font-bold text-white mb-4 text-center">Premium Features Included:</h4>
+                                    <ul class="space-y-3">
+                                        <li class="flex items-center">
+                                            <div class="checkmark">
+                                                <i class="fas fa-check"></i>
+                                            </div>
+                                            <span>Complete Growth System ($1,497 value)</span>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <div class="checkmark">
+                                                <i class="fas fa-check"></i>
+                                            </div>
+                                            <span>AI-Powered Campaign Setup ($697 value)</span>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <div class="checkmark">
+                                                <i class="fas fa-check"></i>
+                                            </div>
+                                            <span>Smart Chat Automation ($297 value)</span>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <div class="checkmark">
+                                                <i class="fas fa-check"></i>
+                                            </div>
+                                            <span>Real-Time Analytics Dashboard ($397 value)</span>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <div class="checkmark">
+                                                <i class="fas fa-check"></i>
+                                            </div>
+                                            <span>90% Conversion Guarantee (Priceless)</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="text-center">
+                                    <button class="cta-button px-8 py-4 rounded-xl text-white font-bold text-lg w-full mb-4">
+                                        <i class="fas fa-lock mr-2"></i> Get Instant Access
+                                    </button>
+                                    
+                                    <div class="guarantee-badge inline-flex items-center px-4 py-2">
+                                        <i class="fas fa-shield-alt text-amber-300 mr-2"></i>
+                                        <span class="text-slate-300">30-Day Money Back Guarantee</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-16 text-center">
+                        <div class="diamond-card inline-block p-6 max-w-2xl">
+                            <div class="flex flex-col md:flex-row items-center justify-between">
+                                <div class="flex items-center mb-4 md:mb-0">
+                                    <div class="w-12 h-12 rounded-full bg-amber-500 flex items-center justify-center mr-4">
+                                        <i class="fas fa-crown text-white"></i>
+                                    </div>
+                                    <div class="text-left">
+                                        <h4 class="font-bold text-white">Still have questions?</h4>
+                                        <p class="text-slate-400 text-sm">Our team is ready to assist you</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="px-6 py-3 rounded-xl bg-slate-800/50 border border-amber-500/30 text-white font-bold hover:bg-slate-700/50 transition">
+                                        <i class="fas fa-comments mr-2"></i> Chat with Support
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Urgency Section -->
+            <section class="py-16 bg-gradient-to-br from-orange-600 to-orange-400 text-white text-center shadow-inner">
+                <div class="container mx-auto px-4 max-w-4xl">
+                    <h2 class="text-3xl sm:text-4xl font-black mb-6 leading-tight">⏳ Last Chance: Offer Expires SOON! <span class="block">Only <span class="text-yellow-200">Limited Spots</span> Left!</span></h2>
+                    <div class="text-2xl sm:text-3xl font-bold mb-8">This Price Disappears In: <span id="countdown" class="block text-4xl sm:text-5xl font-black mt-2 text-yellow-200">--:--:--</span></div>
+                    <p class="text-lg sm:text-xl mb-10 font-medium">
+                        Don't let this opportunity slip away. Once these exclusive spots are filled, the price will go back up to $2,847 permanently! <span class="font-bold text-yellow-100">Act NOW!</span>
+                    </p>
+                    <a href="#order-form" class="cta-button group">
+                        <span class="inline-block px-8 py-4 bg-white text-orange-600 font-extrabold text-xl sm:text-2xl rounded-full shadow-2xl transform transition-all duration-300 group-hover:scale-105 group-hover:bg-gray-100 active:scale-95 active:shadow-inner">
+                            Claim Your Massive Discount NOW!
+                        </span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="py-10 bg-gray-900 text-center border-t border-gray-700">
+                <div class="container mx-auto px-4">
+                    <p class="text-gray-500 mb-4">&#169; 2025 Education Growth Ignition System. All rights reserved.</p>
+                    <p class="text-gray-500 text-sm">
+                        <a href="#" class="text-orange-500 hover:underline mx-2">Privacy Policy</a> |
+                        <a href="#" class="text-orange-500 hover:underline mx-2">Terms of Service</a> |
+                        <a href="#" class="text-orange-500 hover:underline mx-2">Contact Support</a>
+                    </p>
+                    <p class="text-gray-600 text-xs mt-8">
+                        This site is not part of Facebook or Facebook Inc. Additionally, this site is NOT endorsed by Facebook in any way. FACEBOOK is a trademark of FACEBOOK Inc.
+                    </p>
+                </div>
+            </footer>
+
+            <script type="text/javascript">
+            /*<![CDATA[*/
+                // Countdown Timer Logic for urgency section
+                function startCountdown() {
+                    const countdownElement = document.getElementById('countdown');
+                    const endTime = new Date();
+                    // Set for 23 hours, 59 minutes, 47 seconds from now
+                    endTime.setHours(endTime.getHours() + 23);
+                    endTime.setMinutes(endTime.getMinutes() + 59);
+                    endTime.setSeconds(endTime.getSeconds() + 47);
+
+                    const updateCountdown = setInterval(() => {
+                        const now = new Date().getTime();
+                        const distance = endTime.getTime() - now;
+
+                        if (distance < 0) {
+                            clearInterval(updateCountdown);
+                            countdownElement.innerHTML = "EXPIRED";
+                            return;
+                        }
+
+                        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                        countdownElement.innerHTML =
+                            `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                    }, 1000);
+                }
+
+                // Timer countdown for the new pricing section
+                function startPricingTimer() {
+                    const timerElements = document.querySelectorAll('#pricingTimer span');
+                    let timeLeft = 2 * 3600 + 18 * 60 + 47; // 02:18:47 in seconds, initial value
+                    
+                    const timer = setInterval(() => {
+                        timeLeft--;
+                        
+                        if (timeLeft < 0) {
+                            clearInterval(timer);
+                            // Optionally hide or change the timer display when expired
+                            if (timerElements.length > 0) {
+                                timerElements.forEach(el => el.textContent = '00');
+                            }
+                            document.getElementById('pricingTimer').textContent = 'Expired';
+                            return;
+                        }
+                        
+                        const hours = Math.floor(timeLeft / 3600);
+                        const minutes = Math.floor((timeLeft % 3600) / 60);
+                        const seconds = timeLeft % 60;
+                        
+                        if (timerElements.length >= 3) {
+                            timerElements[0].textContent = hours.toString().padStart(2, '0');
+                            timerElements[1].textContent = minutes.toString().padStart(2, '0');
+                            timerElements[2].textContent = seconds.toString().padStart(2, '0');
+                        }
+                    }, 1000);
+                }
+                
+                // Add hover effects for feature items in the new pricing section
+                function setupPricingHoverEffects() {
+                    document.querySelectorAll('.feature-item').forEach(item => {
+                        item.addEventListener('mouseenter', function() {
+                            this.style.backgroundColor = 'rgba(255, 215, 0, 0.05)';
+                        });
+                        
+                        item.addEventListener('mouseleave', function() {
+                            this.style.backgroundColor = '';
+                        });
+                    });
+                }
+
+
+                // Video Carousel Logic
+                function setupVideoCarousel() {
+                    const videoPlayer = document.getElementById('videoPlayer');
+                    const prevBtn = document.getElementById('prevBtn');
+                    const nextBtn = document.getElementById('nextBtn');
+                    const carouselDotsContainer = document.getElementById('carouselDots');
+
+                    // Using placeholder videos for now. In a real scenario, you'd replace these with actual YouTube video IDs.
+                    const videoIds = [
+                        'fA4uU-8x7aY', // Placeholder video 1
+                        'dQw4w9WgXcQ', // Placeholder video 2 (Rick Roll for demo, replace with real!)
+                        'fA4uU-8x7aY', // Placeholder video 3
+                        'dQw4w9WgXcQ', // Placeholder video 4
+                        'fA4uU-8x7aY', // Placeholder video 5
+                        'dQw4w9WgXcQ', // Placeholder video 6
+                        'fA4uU-8x7aY'  // Placeholder video 7
+                    ];
+                    let currentVideoIndex = 0;
+
+                    // Function to update the video player and dots
+                    function updateVideo() {
+                        videoPlayer.src = `https://www.youtube.com/embed/${videoIds[currentVideoIndex]}?controls=0&autoplay=0`;
+                        updateDots();
+                    }
+
+                    // Function to update the carousel dots
+                    function updateDots() {
+                        carouselDotsContainer.innerHTML = ''; // Clear existing dots
+                        videoIds.forEach((_, index) => {
+                            const dot = document.createElement('div');
+                            dot.classList.add('carousel-dot');
+                            if (index === currentVideoIndex) {
+                                dot.classList.add('active');
+                            }
+                            dot.addEventListener('click', () => {
+                                currentVideoIndex = index;
+                                updateVideo();
+                            });
+                            carouselDotsContainer.appendChild(dot);
+                        });
+                    }
+
+                    // Event listeners for navigation buttons
+                    prevBtn.addEventListener('click', () => {
+                        currentVideoIndex = (currentVideoIndex - 1 + videoIds.length) % videoIds.length;
+                        updateVideo();
+                    });
+
+                    nextBtn.addEventListener('click', () => {
+                        currentVideoIndex = (currentVideoIndex + 1) % videoIds.length;
+                        updateVideo();
+                    });
+
+                    // Initialize carousel with the first video
+                    updateVideo();
+                }
+
+                // ROI Calculator Logic
+                function setupRoiCalculator() {
+                    const avgCourseFeeInput = document.getElementById('avgCourseFee');
+                    const conversionRateInput = document.getElementById('conversionRate');
+                    const costPerLeadInput = document.getElementById('costPerLead');
+                    const numLeadsInput = document.getElementById('numLeads');
+                    const calculateRoiBtn = document.getElementById('calculateRoiBtn');
+
+                    const displayEnrollments = document.getElementById('displayEnrollments');
+                    const displayRevenue = document.getElementById('displayRevenue');
+                    const displayAdSpend = document.getElementById('displayAdSpend');
+                    const displayROI = document.getElementById('displayROI');
+
+                    function calculateROI() {
+                        const avgCourseFee = parseFloat(avgCourseFeeInput.value);
+                        const conversionRate = parseFloat(conversionRateInput.value) / 100; // Convert percentage to decimal
+                        const costPerLead = parseFloat(costPerLeadInput.value);
+                        const numLeads = parseFloat(numLeadsInput.value);
+
+                        if (isNaN(avgCourseFee) || isNaN(conversionRate) || isNaN(costPerLead) || isNaN(numLeads) ||
+                            avgCourseFee < 0 || conversionRate < 0 || conversionRate > 1 || costPerLead < 0 || numLeads < 0) {
+                            // console.error('Please enter valid positive numbers for all fields.');
+                            // Instead of alert, we can update a UI message or skip calculation
+                            return;
+                        }
+
+                        // Calculate Enrollments
+                        const expectedEnrollments = Math.floor(numLeads * conversionRate);
+
+                        // Calculate Estimated Revenue
+                        const estimatedRevenue = expectedEnrollments * avgCourseFee;
+
+                        // Calculate Estimated Ad Spend
+                        const estimatedAdSpend = numLeads * costPerLead;
+
+                        // Calculate ROI
+                        let roi = 0;
+                        if (estimatedAdSpend > 0) {
+                            roi = ((estimatedRevenue - estimatedAdSpend) / estimatedAdSpend) * 100;
+                        } else if (estimatedRevenue > 0) {
+                            roi = Infinity; // If no ad spend but revenue, ROI is infinite
+                        }
+
+                        // Display results
+                        displayEnrollments.textContent = expectedEnrollments;
+                        displayRevenue.textContent = `$${estimatedRevenue.toFixed(2)}`;
+                        displayAdSpend.textContent = `$${estimatedAdSpend.toFixed(2)}`;
+                        displayROI.textContent = roi === Infinity ? 'Infinite!' : `${roi.toFixed(2)}%`;
+                    }
+
+                    // Initial calculation on load
+                    calculateROI();
+
+                    // Add event listener to the button
+                    calculateRoiBtn.addEventListener('click', calculateROI);
+
+                    // Add event listeners for input changes to update automatically
+                    avgCourseFeeInput.addEventListener('input', calculateROI);
+                    conversionRateInput.addEventListener('input', calculateROI);
+                    costPerLeadInput.addEventListener('input', calculateROI);
+                    numLeadsInput.addEventListener('input', calculateROI);
+                }
+
+                // Start all functions on window load
+                window.onload = function() {
+                    startCountdown(); // For urgency timer
+                    startPricingTimer(); // For pricing section timer
+                    setupPricingHoverEffects(); // For hover effects
+                    setupVideoCarousel();
+                    setupRoiCalculator(); // Initialize the ROI calculator
+                };
+            /*]]>*/
+            </script>
+          ]]>
+        </b:tag>
+      </b:includable>
+    </b:widget>
+  </b:section>
+
+  <!-- Blogger specific quickedit for template editing features -->
+  <b:include data='blog' name='quickedit'/>
+</body>
+</html>
