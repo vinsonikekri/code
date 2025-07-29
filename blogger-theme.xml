@@ -1,0 +1,50 @@
+<b:template>
+  <b:include data='blog' name='all-head-content'/>
+  <head>
+    <meta charset='UTF-8'/>
+    <meta content='width=device-width, initial-scale=1.0' name='viewport'/>
+    <title><data:blog.pageTitle/></title>
+    <!-- Tailwind CSS CDN -->
+    <script src='https://cdn.tailwindcss.com'></script>
+    <!-- Google Fonts - Inter -->
+    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900anddisplay=swap' rel='stylesheet'/>
+    <!-- Font Awesome for Icons -->
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'/>
+    <style type='text/css'>
+        /* Base styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f172a; /* Solid dark background */
+            color: #e2e8f0;
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* ... existing code ... */
+    </style>
+  </head>
+  <body>
+    <b:section class='main' id='main' showaddelement='no'>
+        <b:widget id='HTML1' type='HTML' locked='false' title='Unpap Health Landing Page'>
+            <b:includable id='main'>
+                <!-- Announcement Bar -->
+                <div class="bg-orange-600 text-white p-3 text-center font-bold rounded-b-lg shadow-lg text-sm sm:text-base">
+                    🔥 LIMITED OFFER Ends In: <span id="announcement-timer" class="font-mono tracking-widest">--:--:--</span> (Claim Your ₹2,847 Value Trial!) 🔥
+                </div>
+                <!-- ... existing code ... -->
+                <!-- Lunacal Popup Modal -->
+                <div id="lunacal-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+                    <div class="bg-white p-4 sm:p-6 rounded-lg shadow-xl w-11/12 max-w-2xl h-3/4 relative">
+                        <!-- Close Button -->
+                        <button id="close-lunacal-modal" class="absolute top-2 right-3 text-gray-600 hover:text-black text-3xl font-bold">X</button>
+                        <!-- Lunacal Embed Container -->
+                        <div style="width:100%;height:100%;overflow:scroll" id="my-lunacal-inline"></div>
+                    </div>
+                </div>
+                <!-- ... existing code ... -->
+            </b:includable>
+        </b:widget>
+    </b:section>
+  </body>
+</b:template>
